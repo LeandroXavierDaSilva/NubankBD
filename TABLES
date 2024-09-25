@@ -1,0 +1,26 @@
+CREATE TABLE Pessoa (
+    id_pessoa INT PRIMARY KEY,
+    nome VARCHAR(100),
+    rg VARCHAR(20),
+    data_nasc DATE,
+    email VARCHAR(100),
+    telefone VARCHAR(20),
+    cpf VARCHAR(14)
+);
+
+CREATE TABLE Conta (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cpf VARCHAR(11),
+    saldo DECIMAL(10, 2) DEFAULT 0.00,
+    FOREIGN KEY (cpf) REFERENCES Pessoa(cpf)
+);
+
+CREATE TABLE movimentacao_conta (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    conta_id INT,
+    cpf VARCHAR(11),
+    tipo_transacao ENUM('deposito', 'saque'),
+    valor DECIMAL(10, 2),
+    data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (conta_id) REFERENCES Conta(id)
+);
